@@ -5,6 +5,8 @@
   - name: Creating a patch Baseline
     shell: aws ssm create-patch-baseline --name "{{Baseline_Name}}" --operating-system "{{Patch_Operating_System}}" --approval-rules "PatchRules=[{PatchFilterGroup={PatchFilters=[{Key=SEVERITY,Values=["{{Severity}}"]},{Key=CLASSIFICATION,Values=["{{Classification}}"]}]},ApproveAfterDays="{{Approve_after_days}}"}]" --description "{{Baseline_description}}" --region "{{region}}"| jq -r .BaselineId
     register: var1
+  - name: sleep
+    shell: sleep 40s  
   - name: Register Patch Baseline with Patch Group
     shell: aws ssm register-patch-baseline-for-patch-group --baseline-id "{{var1.stdout}}" --patch-group "{{patch_group}}" --region "{{region}}" 
     register: var2

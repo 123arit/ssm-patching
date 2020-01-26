@@ -3,7 +3,7 @@
 
   tasks:
   - name: Creating a patch Baseline
-    shell: aws ssm create-patch-baseline --name "{{Baseline_Name}}" --operating-system "{{Patch_Operating_System}}" --approval-rules "PatchRules=[{PatchFilterGroup={PatchFilters=[{Key=SEVERITY,Values=["{{Severity}}"]},{Key=CLASSIFICATION,Values=["{{Classification}}"]}]},ApproveAfterDays="{{Approve_after_days}}"}]" --description "{{Baseline_description}}" --region "{{region}}"| jq -r .BaselineId
+    shell: aws ssm create-patch-baseline --name "{{Baseline_Name}}" --operating-system "{{Patch_Operating_System}}" --approval-rules "PatchRules=[{PatchFilterGroup={PatchFilters=[{Key=SEVERITY,Values=["{{Severity}}"]},{Key=CLASSIFICATION,Values=["{{Classification}}"]}]},ApproveAfterDays="{{Approve_after_days}}",EnableNonSecurity=true}]" --description "{{Baseline_description}}" --region "{{region}}"| jq -r .BaselineId
     register: var1
   - name: sleep
     shell: sleep 40s  

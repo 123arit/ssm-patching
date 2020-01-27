@@ -7,8 +7,7 @@
     register: var1
   - debug:
       msg: "{{var1}}"
-  - name: sleep
-    shell: sleep 40s  
+    
   - name: Register Patch Baseline with Patch Group
     shell: aws ssm register-patch-baseline-for-patch-group --baseline-id "{{var1.stdout}}" --patch-group "{{patch_group}}" --region "{{region}}" 
     register: var2
@@ -16,6 +15,8 @@
   - name: Creating a Maintenance Window
     shell: aws ssm create-maintenance-window --name "{{Maintenance_Window_Name}}" --schedule "{{Maintenance_Schedule}}" --duration "{{Maintenance_Duration}}" --cutoff "{{Maintenance_Cutoff}}" --no-allow-unassociated-targets --region "{{region}}"| jq -r .WindowId
     register: var3
+  - debug:
+      msg: "{{var3}}"
   - name: Register Patch Group with Maintenance Window
     shell: aws ssm register-target-with-maintenance-window --window-id "{{var3.stdout}}" --targets "Key=tag:Patch Group,Values={{patch_group}}" --owner-information "{{Target_Owner_Information}}" --resource-type "INSTANCE" --region "{{region}}"| jq -r .WindowTargetId
     register: var4

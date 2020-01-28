@@ -22,12 +22,12 @@
     register: var4
     when: var3.stdout !=""
   - name: Creating an SNS Topic
-    shell: aws sns create-topic --name "{{sns_topic_name}}"| jq -r .TopicArn
+    shell: aws sns create-topic --name "{{sns_topic_name}}" --region "{{region}}"| jq -r .TopicArn
     register: sns_var1
   - debug:
       msg: "{{sns_var1}}"
   - name: Subscribe to an sns topic
-    shell: aws sns subscribe --topic-arn "{{sns_var1.stdout}}" --protocol email --notification-endpoint "{{sns_subscription_email}}"| jq -r .SubscriptionArn
+    shell: aws sns subscribe --topic-arn "{{sns_var1.stdout}}" --protocol email --notification-endpoint "{{sns_subscription_email}}" --region "{{region}}"| jq -r .SubscriptionArn
     when: sns_var1.stdout != ""
     register: sns_var2
   - debug:

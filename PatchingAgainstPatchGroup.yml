@@ -30,4 +30,4 @@
     register: sns_var2
   - name: Register Task with the Maintenance Window
     shell: aws ssm register-task-with-maintenance-window --window-id "{{var3.stdout}}" --targets "Key=WindowTargetIds,Values={{var4.stdout}}" --task-arn "AWS-RunPatchBaseline" --service-role-arn "{{Service_Role_arn}}" --task-type "RUN_COMMAND" --max-concurrency 2 --max-errors 1 --priority 1 --task-parameters '{"Operation":{"Values":["{{Task}}"]}}' --task-invocation-parameters '{"RunCommand":{"Comment":"A TaskInvocationParameters test comment","NotificationConfig":{"NotificationArn":"{{sns_var1.stdout}}","NotificationEvents":["All"],"NotificationType":"Invocation"}' --region "{{region}}"
-    when: var4.stdout !="" && sns_var2.stdout != ""
+    when: var4.stdout !="" and sns_var2.stdout != ""

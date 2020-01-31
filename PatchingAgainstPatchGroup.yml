@@ -24,4 +24,4 @@
   
   - name: Register Task with the Maintenance Window
     shell: aws ssm register-task-with-maintenance-window --window-id "{{var3.stdout}}" --targets "Key=WindowTargetIds,Values={{var4.stdout}}" --task-arn "AWS-RunPatchBaseline" --task-type "RUN_COMMAND" --max-concurrency 2 --max-errors 1 --priority 1 --task-invocation-parameters '{"Parameters":{"Operation":{"Values":["{{Task}}"]}}}' --region "{{region}}"
-    when: var4.stdout != "" or sns_var2.stdout != ""
+    when: var4.stdout != ""

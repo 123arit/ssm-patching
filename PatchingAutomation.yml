@@ -48,8 +48,7 @@
     shell: aws ssm put-parameter --name "/patch/region" --value "{{region}}" --type "String"
     
   - name: Publish an SNS
-    shell: aws sns publish \
-    --topic-arn "{{sns_topic_arn}}" --message '<html>Operating System:"{{Patch_Operating_System}}"<br>Severity: "{{Severity}}"<br> <a href="{{api_end_point}}">Click to start Patching</a> </html>' --subject "Confirm Whether You Want To Patch Or Not"
+    shell: aws sns publish --topic-arn "{{sns_topic_arn}}" --message '<html>Operating System:"{{Patch_Operating_System}}"<br>Severity: "{{Severity}}"<br> <a href="{{api_end_point}}">Click to start Patching</a> </html>' --subject "Confirm Whether You Want To Patch Or Not"
     
   
     

@@ -4,6 +4,9 @@
   connection: local
   
   tasks:
+  
+  - name: AWS Configure
+    shell: aws config --region "{{region}}"
   - name: Create a new Parameter for Baseline Name
     shell: aws ssm put-parameter --name "/patch/baseline/name" --value "{{Baseline_Name}}" --type "String"
     

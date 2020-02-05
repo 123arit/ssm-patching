@@ -3,49 +3,49 @@
   
   tasks:
   - name: Create a new Parameter for Baseline Name
-    shell: aws ssm put-parameter --name "/patch/baseline/name" --value "{{Baseline_Name}}" --type "String"
+    shell: aws ssm put-parameter --name '/patch/"{{PatchTag}}"/baseline/name' --value "{{Baseline_Name}}" --type "String"
     
   - name: Create a new Parameter for Operating System
-    shell: aws ssm put-parameter --name "/patch/baseline/OS" --value "{{Patch_Operating_System}}" --type "String"
+    shell: aws ssm put-parameter --name "/patch/"{{PatchTag}}"/baseline/OS" --value "{{Patch_Operating_System}}" --type "String"
     
   - name: Create a new Parameter for Severity
-    shell: aws ssm put-parameter --name "/patch/baseline/severity" --value "{{Severity}}" --type "String"
+    shell: aws ssm put-parameter --name "/patch/"{{PatchTag}}"/baseline/severity" --value "{{Severity}}" --type "String"
     
   - name: Create a new Parameter for Classification
-    shell: aws ssm put-parameter --name "/patch/baseline/classification" --value "{{Classification}}" --type "String"
+    shell: aws ssm put-parameter --name "/patch/"{{PatchTag}}"/baseline/classification" --value "{{Classification}}" --type "String"
     
   - name: Create a new Parameter for Approve After Days
-    shell: aws ssm put-parameter --name "/patch/baseline/approve_after_days" --value "{{Approve_after_days}}" --type "String"
+    shell: aws ssm put-parameter --name "/patch/"{{PatchTag}}"/baseline/approve_after_days" --value "{{Approve_after_days}}" --type "String"
   
   - name: Create a new Parameter for Baseline Description
-    shell: aws ssm put-parameter --name "/patch/baseline/desc" --value "{{Baseline_description}}" --type "String"
+    shell: aws ssm put-parameter --name "/patch/"{{PatchTag}}"/baseline/desc" --value "{{Baseline_description}}" --type "String"
     
   - name: Create a new Parameter for Patch Group
-    shell: aws ssm put-parameter --name "/patch/patchgroup/name" --value "{{patch_group}}" --type "String"
+    shell: aws ssm put-parameter --name "/patch/"{{PatchTag}}"/patchgroup/name" --value "{{patch_group}}" --type "String"
     
   - name: Create a new Parameter for Maintenance Window Name
-    shell: aws ssm put-parameter --name "/patch/maintenancewindow/name" --value "{{Maintenance_Window_Name}}" --type "String"
+    shell: aws ssm put-parameter --name "/patch/"{{PatchTag}}"/maintenancewindow/name" --value "{{Maintenance_Window_Name}}" --type "String"
     
   - name: Create a new Parameter for Maintenance Window Schedule
-    shell: aws ssm put-parameter --name "/patch/maintenancewindow/schedule" --value "{{Maintenance_Schedule}}" --type "String"
+    shell: aws ssm put-parameter --name "/patch/"{{PatchTag}}"/maintenancewindow/schedule" --value "{{Maintenance_Schedule}}" --type "String"
     
   - name: Create a new Parameter for Maintenance Window Duration
-    shell: aws ssm put-parameter --name "/patch/maintenancewindow/duration" --value "{{Maintenance_Duration}}" --type "String"
+    shell: aws ssm put-parameter --name "/patch/"{{PatchTag}}"/maintenancewindow/duration" --value "{{Maintenance_Duration}}" --type "String"
     
   - name: Create a new Parameter for Maintenance Window Cutoff
-    shell: aws ssm put-parameter --name "/patch/maintenancewindow/cutoff" --value "{{Maintenance_Cutoff}}" --type "String"
+    shell: aws ssm put-parameter --name "/patch/"{{PatchTag}}"/maintenancewindow/cutoff" --value "{{Maintenance_Cutoff}}" --type "String"
     
   - name: Create a new Parameter for Maintenance Window Target Owner Information
-    shell: aws ssm put-parameter --name "/patch/maintenancewindow/targetownerinfo" --value "{{Target_Owner_Information}}" --type "String"
+    shell: aws ssm put-parameter --name "/patch/"{{PatchTag}}"/maintenancewindow/targetownerinfo" --value "{{Target_Owner_Information}}" --type "String"
     
   - name: Create a new Parameter for Maintenance Window Task
-    shell: aws ssm put-parameter --name "/patch/maintenancewindow/task" --value "{{Task}}" --type "String"
+    shell: aws ssm put-parameter --name "/patch/"{{PatchTag}}"/maintenancewindow/task" --value "{{Task}}" --type "String"
     
   - name: Create a new Parameter for  Maintenance Window Service Role ARN
-    shell: aws ssm put-parameter --name "/patch/maintenancewindow/servicerolearn" --value "{{Service_Role_arn}}" --type "String"
+    shell: aws ssm put-parameter --name "/patch/"{{PatchTag}}"/maintenancewindow/servicerolearn" --value "{{Service_Role_arn}}" --type "String"
     
   - name: Create a new Parameter for  Region
-    shell: aws ssm put-parameter --name "/patch/region" --value "{{region}}" --type "String"
+    shell: aws ssm put-parameter --name "/patch/"{{PatchTag}}"/region" --value "{{region}}" --type "String"
     
   - name: Publish an SNS
     shell: aws sns publish --topic-arn "{{sns_topic_arn}}" --message '<html>Operating System: "{{Patch_Operating_System}}" <br>Severity: "{{Severity}}" <br> <a href= "{{api_end_point}}" >Click to start Patching</a> </html>' --subject "Confirm Whether You Want To Patch Or Not"

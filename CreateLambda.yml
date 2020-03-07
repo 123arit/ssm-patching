@@ -13,8 +13,9 @@
   - debug:
       msg: "{{var2}}"
   - name: Integrating Lambda with the API Gateway
-    shell: aws lambda create-event-source-mapping --event-source-arn 'arn:aws:apigateway:{{region}}::/restapis/"{{var2.stdout}}"/stages/default' --function-name "{{function_name}}" --region "{{region}}"
-    when: var2.stdout != ""
+    shell: aws lambda add-permission --region "{{region}}" --function-name {{LAMBDA-FUNCTION-NAME}} --statement-id "{{var2.stdout}}" --action "lambda:InvokeFunction" --principal api.amazonaws.com --source-arn 'arn:aws:apigateway:"{{region}}"::/restapis/"{{var2.stdout}}"/stages/default'    when: var2.stdout != ""
     register: var3
   - debug:
       msg: "{{var3.stdout}}"
+      
+      

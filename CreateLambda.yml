@@ -13,8 +13,8 @@
   - debug:
       msg: "{{var2}}"
   - name: Integrating Lambda with the API Gateway
-    shell: aws lambda create-event-source-mapping --event-source-arn 'arn:aws:apigateway:{{region}}::/restapis/{{var2}}/stages/default' --function-name "{{function_name}}"
+    shell: aws lambda create-event-source-mapping --event-source-arn 'arn:aws:apigateway:{{region}}::/restapis/"{{var2.stdout}}"/stages/default' --function-name "{{function_name}}"
     when: var2.stdout != ""
     register: var3
   - debug:
-      msg: "{{var3}}"
+      msg: "{{var3.stdout}}"

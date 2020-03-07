@@ -2,7 +2,7 @@
   connection: local
   tasks:
   - name: Creating the lambda function
-    shell: aws lambda create-function --function-name "{{function_name}}" --runtime "{{runtime}}" --zip-file 'fileb://"{{zip_file_name_with_ext}}"' --handler "{{function_handler}}" --role "{{lambda_role_arn}}"
+    shell: aws lambda create-function --function-name "{{function_name}}" --runtime "{{runtime}}" --zip-file 'fileb://"{{zip_file_name_with_ext}}"' --handler "{{function_handler}}" --role "{{lambda_role_arn}}" --timeout 300 --region "{{region}}"
     register: var1
   - debug:
       msg: "{{var1}}"

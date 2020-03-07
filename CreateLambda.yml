@@ -18,3 +18,7 @@
     register: var3
   - debug:
       msg: "{{var3.stdout}}"
+      
+      
+      
+      aws lambda add-permission --region "{{region}}" --function-name "{{function_name}}" --statement-id "{{var2.stdout}}" --action "lambda:InvokeFunction" --principal api.amazonaws.com --source-arn 'arn:aws:apigateway:{{region}}::/restapis/"{{var2.stdout}}"/stages/default'

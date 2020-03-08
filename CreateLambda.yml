@@ -43,7 +43,7 @@
   - debug:
       msg: "{{var7}}"
   - name: Create Deployment
-    shell: aws apigateway create-deployment --rest-api-id "{{var2.stdout}}" --stage-name default
+    shell: aws apigateway create-deployment --rest-api-id "{{var2.stdout}}" --stage-name default --region "{{region}}"
     when: var7.stdout != ""
     register: var8
   - debug:

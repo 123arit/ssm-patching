@@ -13,7 +13,7 @@
   - debug:
       msg: "{{var2}}"
   - name: Get Resource ID of the API Gateway
-    shell: aws apigateway get-resources --rest-api-id "{{var2.stdout}}" --region "{{region}}"| jq -r .id
+    shell: aws apigateway get-resources --rest-api-id "{{var2.stdout}}" --region "{{region}}"| jq -r .items[0].id
     when: var2.stdout != ""
     register: var3
   - debug:

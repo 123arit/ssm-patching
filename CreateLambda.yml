@@ -25,7 +25,7 @@
   - debug:
       msg: "{{var4}}"
   - name: Put a GET Method on the above created resource
-    shell: aws apigateway put-method --rest-api-id "{{var2.stdout}}"--region "{{region}}" --resource-id "{{var4.stdout}}" --http-method GET --authorization-type "NONE"
+    shell: aws apigateway put-method --rest-api-id "{{var2.stdout}}"--region "{{region}}" --resource-id "{{var4.stdout}}" --http-method GET --authorization-type "NONE" --no-api-key-required --request-parameters "method.request.header.custom-header=false"
     when: var4.stdout != ""
     register: var5
   - debug:

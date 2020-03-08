@@ -26,7 +26,7 @@
  #     msg: "{{var4}}"
   - name: Put a GET Method on the above resource
     shell: aws apigateway put-method --rest-api-id "{{var2.stdout}}" --region "{{region}}" --resource-id "{{var3.stdout}}" --http-method GET --authorization-type "NONE" --no-api-key-required --request-parameters '{"method.request.querystring.PatchTag":false}' 
-    when: var4.stdout != ""
+    when: var3.stdout != ""
     register: var5
   - debug:
       msg: "{{var5}}"

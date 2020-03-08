@@ -12,11 +12,23 @@
     when: var1.stdout != ""
   - debug:
       msg: "{{var2}}"
-  - name: Integrating Lambda with the API Gateway
-    shell: aws lambda add-permission --region "{{region}}" --function-name "{{function_name}}" --statement-id "{{var2.stdout}}" --action "lambda:InvokeFunction" --principal api.amazonaws.com --source-arn 'arn:aws:apigateway:"{{region}}"::/restapis/"{{var2.stdout}}"/stages/default'
+  - name: Get Resource ID of the API Gateway
+    shell: aws apigateway get-resources --rest-api-id "{{var2.stdout}}" --region "{{region}}"| jq -r .id
     when: var2.stdout != ""
     register: var3
   - debug:
       msg: "{{var3.stdout}}"
+  - name: API Gateway Put Integration
+    shell: aws apigateway put-integration-response --region "{{region}}" --rest-api-id "{{var2.stdout}}" --resource-id "{{var3.stdout}}" --http-method GET --status-code 200 --selection-pattern ""  
+    when: var3.stdout != ""
+    register: var4
+  - debug:
+      msg: "{{var4.stdout}}"
+  - name: API Gateway create deployment to default stage
+    shell: aws apigateway put-integration-response --region "{{region}}" --rest-api-id "{{var2.stdout}}" --resource-id "{{var3.stdout}}" --http-method GET --status-code 200 --selection-pattern ""  
+    when: var4.stdout != ""
+    register: var5
+  - debug:
+      msg: "{{var5.stdout}}"
       
       

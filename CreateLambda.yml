@@ -31,7 +31,7 @@
   - debug:
       msg: "{{var5}}"
   - name: Get AWS Account ID
-    shell: get-caller-identity| jq -r .Account
+    shell: aws sts get-caller-identity| jq -r .Account
     when: var5.stdout != ""
     register: var6
   - debug:

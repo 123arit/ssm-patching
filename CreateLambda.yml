@@ -17,18 +17,18 @@
     when: var2.stdout != ""
     register: var3
   - debug:
-      msg: "{{var3.stdout}}"
+      msg: "{{var3}}"
   - name: API Gateway Put Integration
     shell: aws apigateway put-integration-response --region "{{region}}" --rest-api-id "{{var2.stdout}}" --resource-id "{{var3.stdout}}" --http-method GET --status-code 200 --selection-pattern ""  
     when: var3.stdout != ""
     register: var4
   - debug:
-      msg: "{{var4.stdout}}"
+      msg: "{{var4}}"
   - name: API Gateway create deployment to default stage
     shell: aws apigateway put-integration-response --region "{{region}}" --rest-api-id "{{var2.stdout}}" --resource-id "{{var3.stdout}}" --http-method GET --status-code 200 --selection-pattern ""  
     when: var4.stdout != ""
     register: var5
   - debug:
-      msg: "{{var5.stdout}}"
+      msg: "{{var5}}"
       
       

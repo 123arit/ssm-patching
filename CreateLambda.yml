@@ -43,7 +43,7 @@
   - debug:
       msg: "{{var6}}"    
   - name: Put an integration with Lambda
-    shell: aws apigateway put-integration --region "{{region}}" --rest-api-id "{{var2.stdout}}" --resource-id "{{var3.stdout}}" --http-method GET --type AWS --integration-http-method POST --uri 'arn:aws:apigateway:{{region}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{region}}:{{var6.stdout}}:function:{{function_name}}/invocations'
+    shell: aws apigateway put-integration --region "{{region}}" --rest-api-id "{{var2.stdout}}" --resource-id "{{var3.stdout}}" --http-method GET --type AWS_PROXY --integration-http-method POST --uri 'arn:aws:apigateway:{{region}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{region}}:{{var6.stdout}}:function:{{function_name}}/invocations'
     when: var6.stdout != ""
     register: var7
   - debug:

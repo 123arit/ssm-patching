@@ -55,7 +55,7 @@
   - debug:
       msg: "{{varMid}}"
   - name: Add Permission
-    shell: aws lambda add-permission --function-name "{{function_name}}" --statement-id apigateway-test-2 --action lambda:InvokeFunction --principal apigateway.amazonaws.com --source-arn 'arn:aws:execute-api:{{region}}:{{var6.stdout}}:{{var2.stdout}}/*/GET/'
+    shell: aws lambda add-permission --function-name "{{function_name}}" --statement-id apigateway-test-2 --action lambda:InvokeFunction --principal apigateway.amazonaws.com --source-arn 'arn:aws:execute-api:{{region}}:{{var6.stdout}}:{{var2.stdout}}/*/GET/' --region "{{region}}"
     when: varMid.stdout != ""
     register: varNew2
   - debug:

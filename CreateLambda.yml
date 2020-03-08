@@ -18,17 +18,41 @@
     register: var3
   - debug:
       msg: "{{var3}}"
-  - name: API Gateway Put Integration
-    shell: aws apigateway put-integration-response --region "{{region}}" --rest-api-id "{{var2.stdout}}" --resource-id "{{var3.stdout}}" --http-method GET --status-code 200 --selection-pattern ""  
+  - name: create a resource /function_name
+    shell: aws apigateway create-resource --rest-api-id "{{var2.stdout}}" --region "{{region}}" --parent-id "{{var3.stdout}}" --path-part "{{function_name}}"| jq -r .id
     when: var3.stdout != ""
     register: var4
   - debug:
       msg: "{{var4}}"
-  - name: API Gateway create deployment to default stage
-    shell: aws apigateway put-integration-response --region "{{region}}" --rest-api-id "{{var2.stdout}}" --resource-id "{{var3.stdout}}" --http-method GET --status-code 200 --selection-pattern ""  
+  - name: Put a GET Method on the above created resource
+    shell: aws apigateway put-method --rest-api-id "{{var2.stdout}}"--region "{{region}}" --resource-id "{{var4.stdout}}" --http-method GET --authorization-type "NONE"
     when: var4.stdout != ""
     register: var5
   - debug:
       msg: "{{var5}}"
+  - name: Get AWS Account ID
+    shell: get-caller-identity| jq -r .Account
+    when: var5.stdout != ""
+    register: var6
+  - debug:
+      msg: "{{var6}}"    
+  - name: Put an integration with Lambda
+    shell: aws apigateway put-integration --region us-west-2 --rest-api-id "{{var2.stdout}}" --resource-id "{{var4.stdout}}" --http-method GET --type AWS --integration-http-method POST --uri 'arn:aws:apigateway:{{region}}:lambda:path/2015-03-31/functions/arn:aws:lambda:{{region}}:{{var6.stdout}}:function:{{function_name}}/invocations'
+    when: var6.stdout != ""
+    register: var7
+  - debug:
+      msg: "{{var7}}"
+  - name: Create Deployment
+    shell: aws apigateway create-deployment --rest-api-id "{{var2.stdout}}" --stage-name default
+    when: var7.stdout != ""
+    register: var8
+  - debug:
+      msg: "{{var8}}"
+  - name: Echoing the API Gateway Endpoint
+    shell: echo 'https://{{var2.stdout}}.execute-api.{{region}}.amazonaws.com/default/{{function_name}}'
+    when: var8.stdout != ""
+    register: var9
+  - debug:
+      msg: "{{var9}}"
       
       

@@ -30,9 +30,15 @@
     register: var5
   - debug:
       msg: "{{var5}}"
+  - name: Creating Put Method Response
+    shell: aws apigateway put-method-response --region "{{region}}" --rest-api-id "{{var2.stdout}}" --resource-id "{{var4.stdout}}" --http-method GET --status-code 200
+    when: var5.stdout != ""
+    register: varNew
+  - debug:
+      msg: "{{varNew}}"    
   - name: Get AWS Account ID
     shell: aws sts get-caller-identity| jq -r .Account
-    when: var5.stdout != ""
+    when: varNew.stdout != ""
     register: var6
   - debug:
       msg: "{{var6}}"    
@@ -42,9 +48,15 @@
     register: var7
   - debug:
       msg: "{{var7}}"
+  - name: Create Integration Response
+    shell: aws apigateway put-integration-response --region "{{region}}" --rest-api-id "{{var2.stdout}}" --resource-id "{{var4.stdout}}" --http-method GET --status-code 200 --selection-pattern ""  
+    when: var7.stdout != ""
+    register: varMid
+  - debug:
+      msg: "{{varMid}}"    
   - name: Create Deployment
     shell: aws apigateway create-deployment --rest-api-id "{{var2.stdout}}" --stage-name default --region "{{region}}"
-    when: var7.stdout != ""
+    when: varMid.stdout != ""
     register: var8
   - debug:
       msg: "{{var8}}"

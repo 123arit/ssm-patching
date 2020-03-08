@@ -49,7 +49,7 @@
   - debug:
       msg: "{{var7}}"
   - name: Create Integration Response
-    shell: aws apigateway put-integration-response --region "{{region}}" --rest-api-id "{{var2.stdout}}" --resource-id "{{var4.stdout}}" --http-method GET --status-code 200 --selection-pattern ""  
+    shell: aws apigateway put-integration-response --region "{{region}}" --rest-api-id "{{var2.stdout}}" --resource-id "{{var3.stdout}}" --http-method GET --status-code 200 --selection-pattern ""  
     when: var7.stdout != ""
     register: varMid
   - debug:
